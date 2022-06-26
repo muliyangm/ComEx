@@ -1,6 +1,5 @@
 import torch
 import torch.nn.functional as F
-import torchvision
 import pytorch_lightning as pl
 from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 from pytorch_lightning.metrics import Accuracy
@@ -14,6 +13,7 @@ from datetime import datetime
 
 
 parser = ArgumentParser()
+
 parser.add_argument("--dataset", default="CIFAR100", type=str, help="dataset")
 parser.add_argument("--data_dir", default="/data/dataset/CIFAR100", type=str, help="data directory")
 parser.add_argument("--download", default=False, action="store_true", help="whether to download")
@@ -21,8 +21,8 @@ parser.add_argument("--log_dir", default="logs", type=str, help="log directory")
 parser.add_argument("--checkpoint_dir", default="checkpoints", type=str, help="checkpoint dir")
 parser.add_argument("--num_workers", default=8, type=int, help="number of workers")
 parser.add_argument("--arch", default="resnet18", type=str, help="backbone architecture")
-parser.add_argument("--num_labeled_classes", default=80, type=int, help="number of base classes")
-parser.add_argument("--num_unlabeled_classes", default=20, type=int, help="number of novel classes")
+parser.add_argument("--num_base_classes", default=80, type=int, help="number of base classes")
+parser.add_argument("--num_novel_classes", default=20, type=int, help="number of novel classes")
 
 parser.add_argument("--batch_size", default=256, type=int, help="batch size")
 parser.add_argument("--base_lr", default=0.2, type=float, help="learning rate")
@@ -49,8 +49,8 @@ class Pretrainer(pl.LightningModule):
         self.model = MultiHeadResNet(
             arch=self.hparams.arch,
             low_res="CIFAR" in self.hparams.dataset,
-            num_labeled=self.hparams.num_labeled_classes,
-            num_unlabeled=self.hparams.num_unlabeled_classes,
+            num_labeled=self.hparams.num_base_classes,
+            num_unlabeled=self.hparams.num_novel_classes,
             num_heads=None,
         )
 
