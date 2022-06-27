@@ -49,8 +49,8 @@ class Pretrainer(pl.LightningModule):
         self.model = MultiHeadResNet(
             arch=self.hparams.arch,
             low_res="CIFAR" in self.hparams.dataset,
-            num_labeled=self.hparams.num_base_classes,
-            num_unlabeled=self.hparams.num_novel_classes,
+            num_base=self.hparams.num_base_classes,
+            num_novel=self.hparams.num_novel_classes,
             num_heads=None,
         )
 
@@ -88,7 +88,7 @@ class Pretrainer(pl.LightningModule):
 
         # supervised loss
         loss_supervised = torch.stack(
-            [F.cross_entropy(o / self.hparams.temperature, labels) for o in outputs["logits_lab"]]
+            [F.cross_entropy(o / self.hparams.temperature, labels) for o in outputs["logits_base"]]
         ).mean()
 
         # log
@@ -105,7 +105,7 @@ class Pretrainer(pl.LightningModule):
         images, labels = batch
 
         # forward
-        logits = self.model(images)["logits_lab"]
+        logits = self.model(images)["logits_base"]
         _, preds = logits.max(dim=-1)
 
         # calculate loss and accuracy

@@ -439,7 +439,7 @@ class Discoverer(pl.LightningModule):
                         self.hparams.num_heads, -1, -1)
         else:  # use supervised classifier
             preds = outputs["logits_base"]
-            if self.hparams.big_head:
+            if self.hparams.batch_head:
                 preds += self.hparams.alpha * outputs["logits_batch_base"][:, :nbc]
             best_head = torch.argmin(self.loss_per_head)
             preds_inc = torch.cat(  # incremental, task-agnostic actually

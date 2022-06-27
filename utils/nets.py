@@ -176,7 +176,7 @@ class MultiHeadResNet(nn.Module):
         out = {"logits_base": self.head_base(F.normalize(feats, dim=-1))}
         out.update({"feats_base": F.normalize(feats, dim=-1)})
         if hasattr(self, "head_batch_base"):
-            out.update({"head_batch_base": self.head_batch_base(F.normalize(feats, dim=-1))})
+            out.update({"logits_batch_base": self.head_batch_base(F.normalize(feats, dim=-1))})
             if self.batch_head_multi_novel:
                 logits_batch_novel, proj_feats_batch_novel = self.head_batch_novel(feats)
                 logits_batch_novel_over, proj_feats_batch_novel_over = self.head_batch_novel_over(feats)
