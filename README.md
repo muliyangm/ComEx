@@ -31,6 +31,7 @@ CUDA_VISIBLE_DEVICES=0 python main_pretrain.py \
  --data_dir PATH/TO/DATASET \
  --gpus 1 \
  --precision 16 \
+ --max_epochs 200 \
  --num_base_classes 5 \
  --num_novel_classes 5 \
  --comment 5_5
@@ -43,6 +44,7 @@ CUDA_VISIBLE_DEVICES=0 python main_discover.py \
  --data_dir PATH/TO/DATASET \
  --gpus 1 \
  --precision 16 \
+ --max_epochs 200 \
  --num_base_classes 5 \
  --num_novel_classes 5 \
  --queue_size 500 \
