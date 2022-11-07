@@ -106,7 +106,7 @@ CUDA_VISIBLE_DEVICES=0 python main_discover.py \
 ## Acknowledgements
 Our work is inspired from many recent efforts in various fields.
 They are
-- [UNO](https://www.google.com.hk/search?client=safari&rls=en&q=uno+novel+class+discovery&ie=UTF-8&oe=UTF-8)
+- [UNO](https://github.com/DonkeyShot21/UNO)
 - [SwAV](https://github.com/facebookresearch/swav)
 - [PAWS](https://github.com/facebookresearch/suncet)
 - [CoMatch](https://github.com/salesforce/CoMatch)
