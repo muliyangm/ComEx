@@ -1,4 +1,4 @@
-# Compositional Experts (ComEx)
+# Compositional Experts (ComEx) for GNCD
 Code for the CVPR 2022 paper:
 
 > **Title:** Divide and Conquer: Compositional Experts for Generalized Novel Class Discovery<br>
