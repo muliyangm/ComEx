@@ -78,7 +78,11 @@ class Discoverer(pl.LightningModule):
             batch_head=self.hparams.batch_head,
             batch_head_multi_novel=self.hparams.batch_head_multi_novel
         )
-
+        
+        state_dict = torch.load(self.hparams.pretrained, map_location=self.device)
+        state_dict = {k: v for k, v in state_dict.items() if ("unlab" not in k)}
+        self.model.load_state_dict(state_dict, strict=False)
+        
         # Sinkorn-Knopp
         self.sk = SinkhornKnopp(num_iters=self.hparams.num_iters_sk, epsilon=self.hparams.epsilon_sk)
 
